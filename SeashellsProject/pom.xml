@@ -3,10 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.seashells</groupId>
   <artifactId>SeashellsProject</artifactId>
-  <packaging>war</packaging>
-  <version>1.0.1-SNAPSHOT</version>
-  <name>SeashellsProject Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <version>1.0.1-SNAPSHOT</version> 
   <dependencies>
  
    <!-- core library -->
