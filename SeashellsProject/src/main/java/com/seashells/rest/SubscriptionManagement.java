@@ -18,13 +18,13 @@ import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
-@Path("/subscription-mngt")
+@Path("/sub-mgt")
 public class SubscriptionManagement {
 	private static final String SIGNING_SECRET = "secret";
 	private static final String SIGNING_KEY = "Z8jiGFKbOc";
 
 	@GET
-	@Path("/notifyOrder")
+	@Path("/create")
 	public Response processNotifyOrder(@QueryParam("url") String urlParam) {
 
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
