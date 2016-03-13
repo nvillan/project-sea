@@ -4,6 +4,8 @@
   <groupId>com.seashells</groupId>
   <artifactId>SeashellsProject</artifactId>
   <version>1.0.1-SNAPSHOT</version> 
+  <packaging>war</packaging>
+  
   <dependencies>
  
    <!-- core library -->
