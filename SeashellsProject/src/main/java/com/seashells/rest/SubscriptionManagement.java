@@ -20,8 +20,8 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 
 @Path("/sub-mgt")
 public class SubscriptionManagement {
-	private static final String SIGNING_SECRET = "secret";
-	private static final String SIGNING_KEY = "Z8jiGFKbOc";
+	private static final String SIGNING_SECRET = "PtgVPwxQxkJ4ODA5";
+	private static final String SIGNING_KEY = "seashells-92212";
 
 	@GET
 	@Path("/create")
