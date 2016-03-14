@@ -38,28 +38,23 @@ public class SubscriptionManagement {
 			System.out.println("\nSending 'GET' request to URL : " + url);
 			System.out.println("Response Code : " + responseCode);
 
-			BufferedReader in = new BufferedReader(
-			        new InputStreamReader(request.getInputStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(request.getInputStream()));
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
+			System.out.println(response);
 			in.close();
-	
-			
-			String reponseString="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>fakeco123</accountIdentifier></result>";
-			
+			String reponseString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>fakeco123</accountIdentifier></result>";
+
 			return Response.status(responseCode).entity(reponseString).build();
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		// String result = "<h1>SUB Demo Application</h1>In real world
-		// application, a collection of users will be returned !!";
-		catch (IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (OAuthMessageSignerException e) {
