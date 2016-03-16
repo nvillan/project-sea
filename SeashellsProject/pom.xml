@@ -7,7 +7,7 @@
   <packaging>war</packaging>
   
   <properties>  
-    <org.springfrk.version>4.1.4.RELEASE</org.springfrk.version>
+       <org.springfrk.version>3.0.5.RELEASE</org.springfrk.version>
   </properties>
   <dependencies>
  
