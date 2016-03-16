@@ -12,6 +12,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
+
+import com.seashells.controller.ApplicationController;
+import com.seashells.manager.UserManager;
+import com.seashells.model.Creator;
+import com.seashells.model.SubscriptionOrderEvent;
+
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -22,6 +30,8 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 public class SubscriptionManagement {
 	private static final String SIGNING_SECRET = "PtgVPwxQxkJ4ODA5";
 	private static final String SIGNING_KEY = "seashells-92212";
+	@Autowired
+	private UserManager userManager;
 
 	@GET
 	@Path("/create")
@@ -45,7 +55,16 @@ public class SubscriptionManagement {
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
-			System.out.println(response);
+
+			RestTemplate restTemplate = new RestTemplate();
+
+			SubscriptionOrderEvent result = restTemplate.getForObject(response.toString(), SubscriptionOrderEvent.class);
+			
+			Creator c = result.getCreator();
+			getUserManager().addUser(c);
+			
+
+			System.out.println(result);
 			in.close();
 			String reponseString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>fakeco123</accountIdentifier></result>";
 
@@ -69,5 +88,19 @@ public class SubscriptionManagement {
 		}
 		return null;
 
+	}
+
+	/**
+	 * @return the userManager
+	 */
+	public UserManager getUserManager() {
+		return userManager;
+	}
+
+	/**
+	 * @param userManager the userManager to set
+	 */
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
 	}
 }
