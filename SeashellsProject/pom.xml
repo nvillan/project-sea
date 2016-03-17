@@ -10,7 +10,19 @@
     <org.springfrk.version>4.0.3.RELEASE</org.springfrk.version>
   </properties>
   <dependencies>
+ <!-- 
+  <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
  
+  -->
    <!-- core library -->
     <dependency>
         <groupId>org.jboss.resteasy</groupId>
