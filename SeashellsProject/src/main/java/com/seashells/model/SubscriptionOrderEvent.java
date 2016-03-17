@@ -14,16 +14,22 @@ public class SubscriptionOrderEvent implements Serializable {
 
 	@XmlElement
 	private String type;
-
-	@XmlElement
-	private String marketplace;
+//
+//	@XmlElement
+//	private String marketplace;
 
 	@XmlElement
 	private Creator creator;
 
-	@XmlElement
-	private SubscriptionPayload payload;
+//	@XmlElement
+//	private SubscriptionPayload payload;
 
+	public SubscriptionOrderEvent(String type, Creator creator) {
+		super();
+		this.type=type;
+		
+	}
+	
 	public SubscriptionOrderEvent() {
 
 	}
@@ -43,36 +49,36 @@ public class SubscriptionOrderEvent implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
+//
+//	/**
+//	 * @return the marketplace
+//	 */
+//	public String getMarketplace() {
+//		return marketplace;
+//	}
+//
+//	/**
+//	 * @param marketplace
+//	 *            the marketplace to set
+//	 */
+//	public void setMarketplace(String marketplace) {
+//		this.marketplace = marketplace;
+//	}
 
-	/**
-	 * @return the marketplace
-	 */
-	public String getMarketplace() {
-		return marketplace;
-	}
-
-	/**
-	 * @param marketplace
-	 *            the marketplace to set
-	 */
-	public void setMarketplace(String marketplace) {
-		this.marketplace = marketplace;
-	}
-
-	/**
-	 * @return the payload
-	 */
-	public SubscriptionPayload getPayload() {
-		return payload;
-	}
-
-	/**
-	 * @param payload
-	 *            the payload to set
-	 */
-	public void setPayload(SubscriptionPayload payload) {
-		this.payload = payload;
-	}
+//	/**
+//	 * @return the payload
+//	 */
+//	public SubscriptionPayload getPayload() {
+//		return payload;
+//	}
+//
+//	/**
+//	 * @param payload
+//	 *            the payload to set
+//	 */
+//	public void setPayload(SubscriptionPayload payload) {
+//		this.payload = payload;
+//	}
 
 	@Override
 	public String toString() {

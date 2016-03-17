@@ -24,7 +24,7 @@ public class Creator {
 	private String lastName;
 
 	@XmlElement
-	private String emailAddress;
+	private String email;
 
 	@XmlElement
 	private String language;
@@ -58,20 +58,6 @@ public class Creator {
 	}
 
 	/**
-	 * @return the emailAddress
-	 */
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
-	/**
-	 * @param emailAddress the emailAddress to set
-	 */
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
-	/**
 	 * @return the language
 	 */
 	public String getLanguage() {
@@ -83,5 +69,19 @@ public class Creator {
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
