@@ -77,7 +77,7 @@ public class RestConroller {
 			System.out.println(acctNum);
 			// in.close();
 			String reponseReturnString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
-					+ String.valueOf(acctNum) + "</accountIdentifier></result>";
+					+"seashellApp"+ String.valueOf(acctNum) + "</accountIdentifier></result>";
 
 			System.out.println(reponseReturnString);
 
