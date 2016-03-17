@@ -1,5 +1,5 @@
 package com.howtodoinjava.entity;
- 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +13,7 @@ public class EmployeeEntity
     @Id
     @Column(name="id")
     @GeneratedValue
-    private Integer id;
+    private String id;
     
     @Column(name="FIRSTNAME")
     private String firstname;
@@ -26,13 +26,13 @@ public class EmployeeEntity
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	/**
