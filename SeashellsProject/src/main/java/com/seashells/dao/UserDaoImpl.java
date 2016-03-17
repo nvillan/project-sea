@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<UserEntity> getAllUsers() {
-		return this.sessionFactory.getCurrentSession().createQuery("from EmployeeEntity").list();
+		return this.sessionFactory.getCurrentSession().createQuery("from UserEntity").list();
 	}
 
 }
