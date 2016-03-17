@@ -68,4 +68,10 @@ public class Result implements Serializable {
 		this.accountIdentifier = accountIdentifier;
 	}
 
+	public String toString() {
+
+		return "success for account " + getAccountIdentifier();
+
+	}
+
 }
