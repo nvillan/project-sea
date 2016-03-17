@@ -21,14 +21,9 @@ public class SubscriptionOrderEvent implements Serializable {
 	@XmlElement
 	private Creator creator;
 
-//	@XmlElement
-//	private SubscriptionPayload payload;
-
-	public SubscriptionOrderEvent(String type, Creator creator) {
-		super();
-		this.type=type;
-		
-	}
+	@XmlElement
+	private SubscriptionPayload payload;
+ 
 	
 	public SubscriptionOrderEvent() {
 
@@ -65,20 +60,20 @@ public class SubscriptionOrderEvent implements Serializable {
 //		this.marketplace = marketplace;
 //	}
 
-//	/**
-//	 * @return the payload
-//	 */
-//	public SubscriptionPayload getPayload() {
-//		return payload;
-//	}
-//
-//	/**
-//	 * @param payload
-//	 *            the payload to set
-//	 */
-//	public void setPayload(SubscriptionPayload payload) {
-//		this.payload = payload;
-//	}
+	/**
+	 * @return the payload
+	 */
+	public SubscriptionPayload getPayload() {
+		return payload;
+	}
+
+	/**
+	 * @param payload
+	 *            the payload to set
+	 */
+	public void setPayload(SubscriptionPayload payload) {
+		this.payload = payload;
+	}
 
 	@Override
 	public String toString() {

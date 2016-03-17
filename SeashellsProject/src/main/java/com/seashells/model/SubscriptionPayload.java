@@ -20,8 +20,8 @@ public class SubscriptionPayload implements Serializable
    @XmlElement
    private SubscriptionOrder order;
     
-   @XmlElement
-   private String company;
+   //@XmlElement
+   //private String company;
     	
 	/**
 	 * 
@@ -43,19 +43,19 @@ public class SubscriptionPayload implements Serializable
 	public void setOrder(SubscriptionOrder order) {
 		this.order = order;
 	}
-
-	/**
-	 * @return the company
-	 */
-	public String getCompany() {
-		return company;
-	}
-
-	/**
-	 * @param company the company to set
-	 */
-	public void setCompany(String company) {
-		this.company = company;
-	}
+//
+//	/**
+//	 * @return the company
+//	 */
+//	public String getCompany() {
+//		return company;
+//	}
+//
+//	/**
+//	 * @param company the company to set
+//	 */
+//	public void setCompany(String company) {
+//		this.company = company;
+//	}
 
 }

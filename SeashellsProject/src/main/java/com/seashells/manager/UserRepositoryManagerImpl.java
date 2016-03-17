@@ -15,8 +15,10 @@ public class UserRepositoryManagerImpl implements UserRepositoryManager {
 	private UserDAO userDAO;
 
 	@Transactional
-	public void addUser(UserEntity user) {
+	public int addUser(UserEntity user) {
 		userDAO.addUser(user);
+
+		return user.getAccountNumber();
 	}
 
 	@Transactional

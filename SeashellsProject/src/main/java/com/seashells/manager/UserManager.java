@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.seashells.entity.UserEntity;
 import com.seashells.model.Creator;
+import com.seashells.model.SubscriptionPayload;
 
 public interface UserManager {
 	
 	public List<UserEntity> retrieveUsers();
 
-	public void addUser(Creator creator);
+	public int addUser(Creator creator, SubscriptionPayload subscriptionPayload);
 
 }

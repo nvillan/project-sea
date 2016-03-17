@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seashells.manager.UserManager;
+import com.seashells.model.Creator;
 import com.seashells.model.SubscriptionOrderEvent;
+import com.seashells.model.SubscriptionPayload;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
@@ -33,7 +35,7 @@ public class RestConroller {
 
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
 		URL url;
-		//try {
+		// try {
 		// url = new URL(urlParam);
 		/*
 		 * HttpURLConnection request = (HttpURLConnection) url.openConnection();
@@ -57,27 +59,28 @@ public class RestConroller {
 		try {
 			jaxbContext = JAXBContext.newInstance(SubscriptionOrderEvent.class);
 
-		// SubscriptionOrderEvent result =
-		// restTemplate.getForObject(reponseString,
-		// SubscriptionOrderEvent.class);
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		StringReader sr = new StringReader(reponseString);
-		SubscriptionOrderEvent countres = (SubscriptionOrderEvent) jaxbUnmarshaller.unmarshal(sr);
-		System.out.println(countres);
+			// SubscriptionOrderEvent result =
+			// restTemplate.getForObject(reponseString,
+			// SubscriptionOrderEvent.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			StringReader sr = new StringReader(reponseString);
+			SubscriptionOrderEvent subscriptionOrderEvent = (SubscriptionOrderEvent) jaxbUnmarshaller.unmarshal(sr);
+			System.out.println(subscriptionOrderEvent);
 
-		// Creator c = result.getCreator();
-		// getUserManager().addUser(c);
+			Creator c = subscriptionOrderEvent.getCreator();
+			SubscriptionPayload sub = subscriptionOrderEvent.getPayload();
+			int acctNum = getUserManager().addUser(c, sub);
 
-		// in.close();
-		String reponseReturnString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>fakeco123</accountIdentifier></result>";
+			System.out.println(acctNum);
+			// in.close();
+			String reponseReturnString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>fakeco123</accountIdentifier></result>";
 
-		// Response.status(responseCode).entity(reponseReturnString).build();
+			// Response.status(responseCode).entity(reponseReturnString).build();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
 		/*
 		 * } catch (MalformedURLException e) { // TODO Auto-generated catch
 		 * block e.printStackTrace(); } catch (IOException e) { // TODO

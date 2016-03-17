@@ -13,7 +13,7 @@ public class UserEntity
     @Id
     @Column(name="account_num")
     @GeneratedValue
-    private Integer id;
+    private Integer accountNumber;
     
     @Column(name="firstname")
 	private String firstname;
@@ -27,18 +27,7 @@ public class UserEntity
     @Column(name="edition")
     private String edition;
  
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	/**
 	 * @return the firstname
 	 */
@@ -86,5 +75,17 @@ public class UserEntity
 	 */
 	public void setEdition(String edition) {
 		this.edition = edition;
+	}
+	/**
+	 * @return the accountNumber
+	 */
+	public Integer getAccountNumber() {
+		return accountNumber;
+	}
+	/**
+	 * @param accountNumber the accountNumber to set
+	 */
+	public void setAccountNumber(Integer accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 }
