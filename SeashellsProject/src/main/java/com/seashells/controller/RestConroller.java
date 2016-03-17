@@ -68,21 +68,18 @@ public class RestConroller {
 			// StringReader sr = new StringReader(response);
 			SubscriptionOrderEvent subscriptionOrderEvent = (SubscriptionOrderEvent) jaxbUnmarshaller
 					.unmarshal(request.getInputStream());
-			System.out.println(subscriptionOrderEvent);
+			System.out.println("printing dummy order :\n"+ subscriptionOrderEvent);
 
 			Creator c = subscriptionOrderEvent.getCreator();
 			SubscriptionPayload sub = subscriptionOrderEvent.getPayload();
 			int acctNum = getUserManager().addUser(c, sub);
 
-			System.out.println(acctNum);
+			System.out.println("printing account num :\n"+acctNum);
 			// in.close();
 			String reponseReturnString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>seashellApp123456</accountIdentifier></result>";
 
-			System.out.println(reponseReturnString);
-
-			resp = Response.status(responseCode).entity(reponseReturnString).build();
-
-			return resp;
+			System.out.println("printing response string  :\n"+reponseReturnString);
+			return Response.status(responseCode).entity(reponseReturnString).build();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
