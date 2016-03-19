@@ -40,7 +40,7 @@ public class RestServiceController {
 
 		// 1. Validate that rest call is coming from App Direct
 		try {
-			 String userAgent = request.getHeader("oauth_signature");
+			 String userAgent = request.getHeader("authorization");
 			 System.out.println("authentication "+ userAgent);
 //			if (!getRestAuthenticator().verify(headers, urlParam)) {
 //				return null;
