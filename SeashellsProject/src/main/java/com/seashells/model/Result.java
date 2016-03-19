@@ -27,13 +27,12 @@ public class Result implements Serializable {
 	/**
 	 * @return the success
 	 */
-	public boolean getSuccess() {
+	public boolean isSuccess() {
 		return success;
 	}
 
 	/**
-	 * @param success
-	 *            the success to set
+	 * @param success the success to set
 	 */
 	public void setSuccess(boolean success) {
 		this.success = success;
@@ -47,8 +46,7 @@ public class Result implements Serializable {
 	}
 
 	/**
-	 * @param message
-	 *            the message to set
+	 * @param message the message to set
 	 */
 	public void setMessage(String message) {
 		this.message = message;
@@ -57,17 +55,16 @@ public class Result implements Serializable {
 	/**
 	 * @return the accountIdentifier
 	 */
-
 	public String getAccountIdentifier() {
 		return accountIdentifier;
 	}
 
 	/**
-	 * @param accountIdentifier
-	 *            the accountIdentifier to set
+	 * @param accountIdentifier the accountIdentifier to set
 	 */
 	public void setAccountIdentifier(String accountIdentifier) {
 		this.accountIdentifier = accountIdentifier;
 	}
+
 
 }

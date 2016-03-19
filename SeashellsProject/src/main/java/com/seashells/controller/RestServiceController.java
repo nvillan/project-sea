@@ -33,7 +33,7 @@ public class RestServiceController {
 	private SubscriptionManager subscriptionManager;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
-	public ResponseEntity<Result> processNotifyOrder(@RequestHeader HttpHeaders headers,
+	public ResponseEntity<String> processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
 		// String reponseString = "<?xml version=\"1.0\" encoding=\"UTF-8\"
@@ -68,9 +68,9 @@ public class RestServiceController {
 			result.setMessage("Account creation successful for nat.");
 			result.setAccountIdentifier(String.valueOf(accoutNumber));
 
-			ResponseEntity<Result> re = new ResponseEntity<Result>(result, HttpStatus.OK);
+			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, HttpStatus.OK);
 			System.out.println("printing response entity :\n" + re.toString());
-			// re.toString());
+			
 			return re;
 
 		} catch (JAXBException e) {
