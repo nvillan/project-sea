@@ -65,8 +65,6 @@ public class RestServiceController {
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_XML);
 
-			String reponseReturnString = "<result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
-					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
 			Result result = new Result();
 			result.setSuccess(true);
 			result.setMessage("Account creation successful for nat.");
@@ -115,11 +113,12 @@ public class RestServiceController {
 			System.out.println("Response Code : " + response.getResponseCode());
 
 			// 3. Cancel account
-			getSubscriptionManager().cancelAccount(response); 
-			
+			// int accoutNumber=
+			// getSubscriptionManager().cancelAccount(response);
+			int accoutNumber = 40;
 			// 4. Send the response
-			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account cancelled.</message>";
-
+			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
+					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_XML);
 
@@ -143,9 +142,6 @@ public class RestServiceController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (OAuthCommunicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

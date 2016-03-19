@@ -42,7 +42,7 @@ public class SubscriptionManager {
 
 	}
 
-	public void cancelAccount(HttpURLConnection response) throws JAXBException, IOException {
+	public int cancelAccount(HttpURLConnection response) throws JAXBException, IOException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(SubscriptionEvent.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
@@ -52,7 +52,7 @@ public class SubscriptionManager {
 
 		SubscriptionPayload payload = subscriptionCancelEvent.getPayload();
 
-		getUserManager().cancelUserSubscription(payload);
+		return getUserManager().cancelUserSubscription(payload);
 
 	}
 

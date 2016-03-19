@@ -12,6 +12,6 @@ public interface UserManager {
 
 	public int addUserSubscription(Creator creator, SubscriptionPayload subscriptionPayload);
 
-	public void cancelUserSubscription(SubscriptionPayload payload);
+	public int cancelUserSubscription(SubscriptionPayload payload);
 
 }

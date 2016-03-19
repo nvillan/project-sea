@@ -1,6 +1,7 @@
 package com.seashells.manager;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,8 +51,11 @@ public class UserManagerImpl implements UserManager {
 		this.userRepoManager = userRepoManager;
 	}
 
-	public void cancelUserSubscription(SubscriptionPayload payload) {
+	public int cancelUserSubscription(SubscriptionPayload payload) {
+
+		System.out.println("printing account num " + String.valueOf(payload.getAccount().getAccountIdentifier()));
 		getUserRepoManager().deleteUserAccount(payload.getAccount().getAccountIdentifier());
+		return payload.getAccount().getAccountIdentifier();
 
 	}
 
