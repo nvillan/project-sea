@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seashells.manager.SubscriptionManager;
+import com.seashells.model.Result;
 import com.seashells.validator.RestServiceValidator;
 
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -32,7 +34,8 @@ public class RestServiceController {
 	private SubscriptionManager subscriptionManager;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
-	public ResponseEntity<String> processNotifyOrder(@RequestHeader HttpHeaders headers,
+	@ResponseBody
+	public Result processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
 		// String reponseString = "<?xml version=\"1.0\" encoding=\"UTF-8\"
@@ -43,7 +46,7 @@ public class RestServiceController {
 
 		// 1. Validate that rest call is coming from App Direct
 		if (!getRestValidator().verify(headers)) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			return null;
 		}
 
 		try {
@@ -62,15 +65,15 @@ public class RestServiceController {
 
 			String reponseReturnString = "<result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
 					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
+			Result result = new Result();
+			result.setSuccess(true);
+			result.setMessage("Account creation successful for nat.");
+			result.setAccountIdentifier(String.valueOf(accoutNumber));
 
-			//reponseReturnString = getRestValidator().prepareResponse(reponseReturnString);
-
-			
-			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnString, HttpStatus.OK);
-
-			System.out.println("printing response entity :\n" + re.toString());
-			return re;
-			//return reponseReturnString;
+			// System.out.println("printing response entity :\n" +
+			// re.toString());
+			return result;
+			// return reponseReturnString;
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
