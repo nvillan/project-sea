@@ -56,13 +56,12 @@
             </props>
         </property>
     </bean>
-<!-- 
+
     <bean id="userDAO" class="com.seashells.dao.UserDaoImpl"></bean>
     <bean id="userRepoManager" class="com.seashells.manager.UserRepositoryManagerImpl"></bean>
     <bean id="userManager" class="com.seashells.manager.UserManagerImpl"></bean>
     <bean id="subscriptionManager" class="com.seashells.manager.SubscriptionManager"></bean>
-	<bean id="restServiceValidator" class="com.seashells.validator.RestServiceValidator"></bean>
-     -->
+	<bean id="restAuthenticator" class="com.seashells.validator.RestAuthenticator"></bean>
     <tx:annotation-driven />
     <bean id="transactionManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager">
