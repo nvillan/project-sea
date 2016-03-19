@@ -7,11 +7,12 @@ import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seashells.manager.SubscriptionManager;
@@ -31,8 +32,7 @@ public class RestServiceController {
 	private SubscriptionManager subscriptionManager;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
-	@ResponseBody
-	public String processNotifyOrder(@RequestHeader HttpHeaders headers,
+	public ResponseEntity<String> processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
 		// String reponseString = "<?xml version=\"1.0\" encoding=\"UTF-8\"
@@ -43,7 +43,7 @@ public class RestServiceController {
 
 		// 1. Validate that rest call is coming from App Direct
 		if (!getRestValidator().verify(headers)) {
-			return "400";
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 
 		try {
@@ -63,8 +63,8 @@ public class RestServiceController {
 			//reponseReturnString = getRestValidator().prepareResponse(reponseReturnString);
 
 			System.out.println("printing response string  :\n" + reponseReturnString);
-
-			return reponseReturnString;
+			return new ResponseEntity<String>(reponseReturnString, HttpStatus.OK);
+			//return reponseReturnString;
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
