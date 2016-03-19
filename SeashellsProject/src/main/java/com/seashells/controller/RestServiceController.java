@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +61,8 @@ public class RestServiceController {
 			// 4. Send the response
 			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
 					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
-
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.setContentType(MediaType.APPLICATION_XML);
 			String reponseReturnString = "<result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
 					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
 			Result result = new Result();
@@ -68,7 +70,7 @@ public class RestServiceController {
 			result.setMessage("Account creation successful for nat.");
 			result.setAccountIdentifier(String.valueOf(accoutNumber));
 
-			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, HttpStatus.OK);
+			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders, HttpStatus.OK);
 			System.out.println("printing response entity :\n" + re.toString());
 			
 			return re;
