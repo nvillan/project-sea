@@ -43,9 +43,7 @@ public class RestAuthenticator {
 			for (Iterator<String> iter = authHeader.iterator(); iter.hasNext();) {
 
 				String headerName = iter.next();
-				if (headerName.equalsIgnoreCase("oauth_signature")){
-					System.out.println("oauth_signature" + headerName);
-				}
+				System.out.println("" + headerName);
 			}
 		}
 		// ("oauth_signature");

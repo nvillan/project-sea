@@ -3,6 +3,7 @@ package com.seashells.controller;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,16 @@ public class RestServiceController {
 	private SubscriptionManager subscriptionManager;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
-	public ResponseEntity<String> processNotifyOrder(@RequestHeader HttpHeaders headers,
+	public ResponseEntity<String> processNotifyOrder(HttpServletRequest request,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
 		// 1. Validate that rest call is coming from App Direct
 		try {
-			if (!getRestAuthenticator().verify(headers, urlParam)) {
-				return null;
-			}
+			 String userAgent = request.getHeader("oauth_signature");
+			 System.out.println("authentication "+ userAgent);
+//			if (!getRestAuthenticator().verify(headers, urlParam)) {
+//				return null;
+//			}
 
 			// 2. Its call from App Direct, lets sign it and send it back
 			HttpURLConnection response = getRestAuthenticator().sign(urlParam);
