@@ -34,7 +34,6 @@ public class RestServiceController {
 	private SubscriptionManager subscriptionManager;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
-	@ResponseBody
 	public Result processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
@@ -70,7 +69,7 @@ public class RestServiceController {
 			result.setMessage("Account creation successful for nat.");
 			result.setAccountIdentifier(String.valueOf(accoutNumber));
 
-			// System.out.println("printing response entity :\n" +
+			System.out.println("printing response entity :\n" + result.toString());
 			// re.toString());
 			return result;
 			// return reponseReturnString;

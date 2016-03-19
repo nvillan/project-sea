@@ -20,13 +20,13 @@ public class Result implements Serializable {
 
 	@XmlElement
 	private String message;
-	
+
 	@XmlElement
 	private String accountIdentifier;
 
 	/**
 	 * @return the success
-	 */ 
+	 */
 	public boolean getSuccess() {
 		return success;
 	}
@@ -41,7 +41,7 @@ public class Result implements Serializable {
 
 	/**
 	 * @return the message
-	 */ 
+	 */
 	public String getMessage() {
 		return message;
 	}
@@ -57,7 +57,7 @@ public class Result implements Serializable {
 	/**
 	 * @return the accountIdentifier
 	 */
-	
+
 	public String getAccountIdentifier() {
 		return accountIdentifier;
 	}
@@ -68,12 +68,6 @@ public class Result implements Serializable {
 	 */
 	public void setAccountIdentifier(String accountIdentifier) {
 		this.accountIdentifier = accountIdentifier;
-	}
-
-	public String toString() {
-
-		return "success for account " + getAccountIdentifier();
-
 	}
 
 }
