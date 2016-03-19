@@ -15,6 +15,7 @@ import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.signature.QueryStringSigningStrategy;
 
 /**
  * @author N&Y
@@ -43,6 +44,13 @@ public class RestServiceValidator {
 		consumer.sign(request);
 
 		return request ;
+	}
+
+	public String prepareResponse(String reponseReturnString) throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException {
+		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
+		consumer.setSigningStrategy( new QueryStringSigningStrategy()); 
+		return consumer.sign(reponseReturnString);
+		
 	}
 
 }
