@@ -8,4 +8,6 @@ public interface UserRepositoryManager {
 	public int addUser(UserEntity user);
 
 	public List<UserEntity> getAllUsers();
+
+	public void deleteUserAccount(int accountIdentifier);
 }

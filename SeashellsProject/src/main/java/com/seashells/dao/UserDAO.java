@@ -16,4 +16,6 @@ public interface UserDAO {
 	public void addUser(UserEntity employee);
 
 	public List<UserEntity> getAllUsers();
+
+	public void deleteUser(int accountNum);
 }

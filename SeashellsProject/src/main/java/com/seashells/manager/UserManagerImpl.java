@@ -11,7 +11,7 @@ import com.seashells.model.SubscriptionPayload;
 
 @Service
 public class UserManagerImpl implements UserManager {
-	
+
 	@Autowired
 	private UserRepositoryManager userRepoManager;
 
@@ -20,7 +20,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Transactional
-	public int addUser(Creator creator, SubscriptionPayload subscriptionPayload) {
+	public int addUserSubscription(Creator creator, SubscriptionPayload subscriptionPayload) {
 		// validate creator details
 
 		// create employee entity
@@ -28,9 +28,9 @@ public class UserManagerImpl implements UserManager {
 		user.setFirstname(creator.getFirstName());
 		user.setLastname(creator.getLastName());
 		user.setEmail(creator.getEmail());
-		
+
 		user.setEdition(subscriptionPayload.getOrder().getEditionCode());
-		
+
 		return getUserRepoManager().addUser(user);
 
 	}
@@ -48,6 +48,11 @@ public class UserManagerImpl implements UserManager {
 	 */
 	public void setUserRepoManager(UserRepositoryManager userRepoManager) {
 		this.userRepoManager = userRepoManager;
+	}
+
+	public void cancelUserSubscription(SubscriptionPayload payload) {
+		getUserRepoManager().deleteUserAccount(payload.getAccount().getAccountIdentifier());
+
 	}
 
 }

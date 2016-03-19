@@ -10,6 +10,8 @@ public interface UserManager {
 	
 	public List<UserEntity> retrieveUsers();
 
-	public int addUser(Creator creator, SubscriptionPayload subscriptionPayload);
+	public int addUserSubscription(Creator creator, SubscriptionPayload subscriptionPayload);
+
+	public void cancelUserSubscription(SubscriptionPayload payload);
 
 }

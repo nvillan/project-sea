@@ -16,6 +16,8 @@ public class SubscriptionPayload implements Serializable
 {
    private static final long serialVersionUID = 1L;
  
+   @XmlElement
+   private SubscriptionAccount account;
    
    @XmlElement
    private SubscriptionOrder order;
@@ -57,5 +59,19 @@ public class SubscriptionPayload implements Serializable
 //	public void setCompany(String company) {
 //		this.company = company;
 //	}
+
+	/**
+	 * @return the account
+	 */
+	public SubscriptionAccount getAccount() {
+		return account;
+	}
+
+	/**
+	 * @param account the account to set
+	 */
+	public void setAccount(SubscriptionAccount account) {
+		this.account = account;
+	}
 
 }

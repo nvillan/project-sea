@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seashells.manager.SubscriptionManager;
@@ -34,8 +33,8 @@ public class RestServiceController {
 	@Autowired
 	private SubscriptionManager subscriptionManager;
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
-	public @ResponseBody Result processNotifyOrder(@RequestHeader HttpHeaders headers,
+	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
+	public ResponseEntity<String> processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
 		// String reponseString = "<?xml version=\"1.0\" encoding=\"UTF-8\"
@@ -62,10 +61,10 @@ public class RestServiceController {
 			// 4. Send the response
 			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
 					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
-			
+
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_XML);
-			
+
 			String reponseReturnString = "<result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
 					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
 			Result result = new Result();
@@ -73,10 +72,11 @@ public class RestServiceController {
 			result.setMessage("Account creation successful for nat.");
 			result.setAccountIdentifier(String.valueOf(accoutNumber));
 
-			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders, HttpStatus.OK);
+			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders,
+					HttpStatus.OK);
 			System.out.println("printing response entity :\n" + re.toString());
-			
-			return result;
+
+			return re;
 
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
@@ -91,6 +91,61 @@ public class RestServiceController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (OAuthCommunicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET, produces = "application/xml")
+	public ResponseEntity<String> processNotifyCancel(@RequestHeader HttpHeaders headers,
+			@RequestParam(value = "url", required = true) String urlParam) {
+
+		// 1. Validate that rest call is coming from App Direct
+		if (!getRestValidator().verify(headers)) {
+			return null;
+		}
+
+		try {
+
+			// 2. Its call from App Direct, lets sign it and send it back
+			HttpURLConnection response = getRestValidator().sign(urlParam);
+			System.out.println("Response Code : " + response.getResponseCode());
+
+			// 3. Cancel account
+			getSubscriptionManager().cancelAccount(response); 
+			
+			// 4. Send the response
+			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account cancelled.</message>";
+
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.setContentType(MediaType.APPLICATION_XML);
+
+			Result result = new Result();
+			result.setSuccess(true);
+			result.setMessage("Account cancelled successful for nat.");
+
+			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders,
+					HttpStatus.OK);
+			System.out.println("printing response entity :\n" + re.toString());
+
+			return re;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OAuthMessageSignerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OAuthExpectationFailedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OAuthCommunicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

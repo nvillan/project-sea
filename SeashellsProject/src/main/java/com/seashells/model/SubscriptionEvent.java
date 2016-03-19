@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "event")
 @XmlAccessorType(XmlAccessType.NONE)
-public class SubscriptionOrderEvent implements Serializable {
+public class SubscriptionEvent implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@XmlElement
@@ -25,7 +25,7 @@ public class SubscriptionOrderEvent implements Serializable {
 	private SubscriptionPayload payload;
  
 	
-	public SubscriptionOrderEvent() {
+	public SubscriptionEvent() {
 
 	}
  

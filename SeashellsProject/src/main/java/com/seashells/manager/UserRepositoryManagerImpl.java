@@ -17,7 +17,6 @@ public class UserRepositoryManagerImpl implements UserRepositoryManager {
 	@Transactional
 	public int addUser(UserEntity user) {
 		userDAO.addUser(user);
-
 		return user.getAccountNumber();
 	}
 
@@ -28,5 +27,9 @@ public class UserRepositoryManagerImpl implements UserRepositoryManager {
 
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+	public void deleteUserAccount(int accountIdentifier) {
+		userDAO.deleteUser(accountIdentifier);
 	}
 }
