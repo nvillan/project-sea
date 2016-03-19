@@ -2,7 +2,7 @@
  * 
  */
 package com.seashells.validator;
- 
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -23,18 +23,27 @@ import oauth.signpost.signature.QueryStringSigningStrategy;
  */
 
 @Service
-public class RestServiceValidator {
+public class RestAuthenticator {
 
 	private static final String SIGNING_SECRET = "PtgVPwxQxkJ4ODA5";
 	private static final String SIGNING_KEY = "seashells-92212";
 
-	public boolean verify(HttpHeaders headers) {
-		return true;
-		// TODO Auto-generated method stub
+	public boolean verify(HttpHeaders headers, String url) throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException{
 
+		String oAuthSignature = headers.get("oauth_signature").get(0);
+		System.out.println("The oAuthSignature in header : " + oAuthSignature);
+
+		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
+		consumer.setSigningStrategy(new QueryStringSigningStrategy());
+		String signedUrl = consumer.sign(url);
+
+		System.out.println("The signedUrl : " + signedUrl);
+		
+		return oAuthSignature.equals(signedUrl);
 	}
 
-	public HttpURLConnection sign(String urlParam) throws IOException, OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException {
+	public HttpURLConnection sign(String urlParam) throws IOException, OAuthMessageSignerException,
+			OAuthExpectationFailedException, OAuthCommunicationException {
 
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
 		URL url = new URL(urlParam);
@@ -43,14 +52,15 @@ public class RestServiceValidator {
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 
-		return request ;
+		return request;
 	}
 
-	public String prepareResponse(String reponseReturnString) throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException {
+	public String prepareResponse(String reponseReturnString)
+			throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException {
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
-		consumer.setSigningStrategy( new QueryStringSigningStrategy()); 
+		consumer.setSigningStrategy(new QueryStringSigningStrategy());
 		return consumer.sign(reponseReturnString);
-		
+
 	}
 
 }
