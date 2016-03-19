@@ -43,12 +43,16 @@ public class RestAuthenticator {
 			for (Iterator<String> iter = authHeader.iterator(); iter.hasNext();) {
 
 				String headerName = iter.next();
-				System.out.println("" + headerName);
+				if (headerName.equalsIgnoreCase("oauth_signature")){
+					System.out.println("oauth_signature" + headerName);
+				}
 			}
 		}
 		// ("oauth_signature");
 		String oAuthSignature = authHeader.get(0);
+		
 		System.out.println("The oAuthSignature in header : " + oAuthSignature);
+		
 
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
 		consumer.setSigningStrategy(new QueryStringSigningStrategy());
