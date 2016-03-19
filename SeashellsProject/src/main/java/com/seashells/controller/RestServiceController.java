@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seashells.manager.SubscriptionManager;
@@ -34,7 +33,7 @@ public class RestServiceController {
 	private SubscriptionManager subscriptionManager;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
-	public Result processNotifyOrder(@RequestHeader HttpHeaders headers,
+	public ResponseEntity<Result> processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
 		// String reponseString = "<?xml version=\"1.0\" encoding=\"UTF-8\"
@@ -69,10 +68,11 @@ public class RestServiceController {
 			result.setMessage("Account creation successful for nat.");
 			result.setAccountIdentifier(String.valueOf(accoutNumber));
 
-			System.out.println("printing response entity :\n" + result.toString());
+			ResponseEntity<Result> re = new ResponseEntity<Result>(result, HttpStatus.OK);
+			System.out.println("printing response entity :\n" + re.toString());
 			// re.toString());
-			return result;
-			// return reponseReturnString;
+			return re;
+
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
