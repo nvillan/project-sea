@@ -57,13 +57,19 @@ public class RestServiceController {
 			System.out.println("printing account num :\n" + accoutNumber);
 
 			// 4. Send the response
-			String reponseReturnString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
+			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
+					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
+
+			String reponseReturnString = "<result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
 					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
 
 			//reponseReturnString = getRestValidator().prepareResponse(reponseReturnString);
 
-			System.out.println("printing response string  :\n" + reponseReturnString);
-			return new ResponseEntity<String>(reponseReturnString, HttpStatus.OK);
+			
+			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnString, HttpStatus.OK);
+
+			System.out.println("printing response entity :\n" + re.toString());
+			return re;
 			//return reponseReturnString;
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
