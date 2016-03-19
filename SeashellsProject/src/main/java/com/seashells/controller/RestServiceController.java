@@ -30,7 +30,7 @@ public class RestServiceController {
 	@Autowired
 	private SubscriptionManager subscriptionManager;
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
+	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/xml")
 	@ResponseBody
 	public String processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
