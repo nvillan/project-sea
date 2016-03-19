@@ -11,19 +11,22 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "result")
+@XmlAccessorType(XmlAccessType.NONE)
 public class Result implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@XmlElement
 	private boolean success;
 
+	@XmlElement
 	private String message;
-
+	
+	@XmlElement
 	private String accountIdentifier;
 
 	/**
 	 * @return the success
-	 */
-	@XmlElement
+	 */ 
 	public boolean getSuccess() {
 		return success;
 	}
@@ -38,8 +41,7 @@ public class Result implements Serializable {
 
 	/**
 	 * @return the message
-	 */
-	@XmlElement
+	 */ 
 	public String getMessage() {
 		return message;
 	}
@@ -55,7 +57,7 @@ public class Result implements Serializable {
 	/**
 	 * @return the accountIdentifier
 	 */
-	@XmlElement
+	
 	public String getAccountIdentifier() {
 		return accountIdentifier;
 	}

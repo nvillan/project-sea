@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author N&Y
  *
  */
-@SuppressWarnings("restriction")
 @XmlRootElement(name = "creator")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Creator {
