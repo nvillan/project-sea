@@ -7,19 +7,23 @@
 </head>
 <body>
  
-<h2>Customer List for Seashells Project</h2>
+<h2>Customer List for Seashells App</h2>
  
-<h3>Customers that purchased app</h3>
+
 <c:if  test="${!empty userList}">
 <table class="data">
 <tr>
+    <th>Account Number</th>
     <th>Name</th>
     <th>Email</th>
+    <th>Edition Purchased</th>
 </tr>
 <c:forEach items="${userList}" var="user">
     <tr>
+    	<td>${user.accountNumber}</td>
         <td>${user.lastname}, ${user.firstname} </td>
-        <td>${user.email}</td> 
+        <td>${user.email}</td>
+        <td>${user.edition}</td>
     </tr>
 </c:forEach>
 </table>
