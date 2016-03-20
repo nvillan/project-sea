@@ -28,8 +28,8 @@ import oauth.signpost.signature.QueryStringSigningStrategy;
 @Service
 public class RestAuthenticator {
 
-	private static final String SIGNING_SECRET = "PtgVPwxQxkJ4ODA5";
-	private static final String SIGNING_KEY = "seashells-92212";
+	private static final String SIGNING_SECRET = "3Lk4JaRNn18RZMKD";
+	private static final String SIGNING_KEY = "sea-app-96156";
 
 	public boolean verify(HttpHeaders headers, String url)
 			throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException {
