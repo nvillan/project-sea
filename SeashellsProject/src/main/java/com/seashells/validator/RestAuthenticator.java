@@ -34,8 +34,6 @@ public class RestAuthenticator {
 	public boolean verify(HttpHeaders headers, String url)
 			throws OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException {
 
-
-
 		List<String> authHeader = headers.get("authorization");
 		if (authHeader == null) {
 			return false;
@@ -54,6 +52,7 @@ public class RestAuthenticator {
 
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
 		consumer.setSigningStrategy(new QueryStringSigningStrategy());
+		
 		String signedUrl = consumer.sign(url);
 
 		System.out.println("The signedUrl : " + signedUrl);
