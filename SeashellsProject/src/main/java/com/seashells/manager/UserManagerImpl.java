@@ -23,13 +23,13 @@ public class UserManagerImpl implements UserManager {
 	@Transactional
 	public int addUserSubscription(Creator creator, SubscriptionPayload subscriptionPayload) {
 		// validate creator details
+		//TODO: Validate that a user with the same email address doesn't already exist.
 
 		// create employee entity
 		UserEntity user = new UserEntity();
 		user.setFirstname(creator.getFirstName());
 		user.setLastname(creator.getLastName());
 		user.setEmail(creator.getEmail());
-
 		user.setEdition(subscriptionPayload.getOrder().getEditionCode());
 
 		return getUserRepoManager().addUser(user);

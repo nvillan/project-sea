@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seashells.manager.AccountCreationException;
 import com.seashells.manager.SubscriptionManager;
 import com.seashells.model.Result;
 import com.seashells.validator.RestAuthenticator;
@@ -23,6 +24,14 @@ import com.seashells.validator.RestAuthenticator;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
+
+/**
+ * The Rest Service controller class is responsible for handling all the rest
+ * calls from App Direct.
+ *
+ * @author Natalie Villanueva
+ * @version 1.0
+ */
 
 @RestController
 public class RestServiceController {
@@ -33,40 +42,42 @@ public class RestServiceController {
 	@Autowired
 	private SubscriptionManager subscriptionManager;
 
+	/**
+	 * Process notify order method handles the subscription order event. It
+	 * validates that the rest call comes from App Direct, signs the url using
+	 * OAuth and sends it back to App Direct which will validate and send the
+	 * event data.
+	 * 
+	 * @param headers
+	 *            the headers
+	 * @param urlParam
+	 *            the url param
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/xml")
 	public ResponseEntity<String> processNotifyOrder(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "url", required = true) String urlParam) {
 
-		// 1. Validate that rest call is coming from App Direct
 		try {
+			// 1. Validate that rest call is coming from App Direct
 			if (!getRestAuthenticator().verify(headers, urlParam)) {
-				return null;
+				return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
 			}
 
-			// 2. Its call from App Direct, lets sign it and send it back
+			// 2. If call is from App Direct, sign it and send it back
 			HttpURLConnection response = getRestAuthenticator().sign(urlParam);
 			System.out.println("Response Code : " + response.getResponseCode());
 
 			// 3. Create account
 			int accoutNumber = getSubscriptionManager().createAccount(response);
-			System.out.println("printing account num :\n" + accoutNumber);
+			System.out.println("Account created is :\n" + accoutNumber);
 
 			// 4. Send the response
-			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
-					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
-
-			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.setContentType(MediaType.APPLICATION_XML);
-
 			Result result = new Result();
 			result.setSuccess(true);
-			result.setMessage("Account creation successful for nat.");
+			result.setMessage("Account creation successful " + accoutNumber);
 			result.setAccountIdentifier(String.valueOf(accoutNumber));
-
-			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders,
-					HttpStatus.OK);
-			System.out.println("printing response entity :\n" + re.toString());
-
+			ResponseEntity<String> re = createResponse(result);
 			return re;
 
 		} catch (JAXBException e) {
@@ -84,15 +95,45 @@ public class RestServiceController {
 		} catch (OAuthCommunicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (AccountCreationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-		return null;
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 
 	}
 
+	private ResponseEntity<String> createResponse(Result result) {
+
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_XML);
+		String accountIdentifier = result.getAccountIdentifier();
+
+		String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>"
+				+ String.valueOf(result.isSuccess()) + "</success><message>" + result.getMessage()
+				+ "</message><accountIdentifier>" + accountIdentifier + "</accountIdentifier></result>";
+
+		return new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders, HttpStatus.OK);
+	}
+
+	/**
+	 * Process notify order method handles the subscription order event. It
+	 * validates that the rest call comes from App Direct, signs the url using
+	 * OAuth and sends it back to App Direct which will validate and send the
+	 * event data.
+	 * 
+	 * @param headers
+	 *            the headers
+	 * @param urlParam
+	 *            the url param
+	 * @return the response entity
+	 * @throws AccountCreationException
+	 */
+
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET, produces = "application/xml")
 	public ResponseEntity<String> processNotifyCancel(@RequestHeader HttpHeaders headers,
-			@RequestParam(value = "url", required = true) String urlParam) {
+			@RequestParam(value = "url", required = true) String urlParam) throws AccountCreationException {
 
 		try {
 

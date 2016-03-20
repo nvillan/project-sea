@@ -28,29 +28,38 @@ public class SubscriptionManager {
 	@Autowired
 	private UserManager userManager;
 
-	public int createAccount(HttpURLConnection response) throws JAXBException, IOException {
+	public int createAccount(HttpURLConnection response) throws JAXBException, IOException, AccountCreationException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(SubscriptionEvent.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
 		SubscriptionEvent subscriptionOrderEvent = (SubscriptionEvent) jaxbUnmarshaller
 				.unmarshal(response.getInputStream());
-		System.out.println("printing dummy order :\n" + subscriptionOrderEvent);
+		System.out.println("Creation account for order :\n" + subscriptionOrderEvent);
 
 		Creator c = subscriptionOrderEvent.getCreator();
-		SubscriptionPayload sub = subscriptionOrderEvent.getPayload();
-		return getUserManager().addUserSubscription(c, sub);
+		if (c == null) {
+			throw new AccountCreationException("The subscriptionOrderEvent has no creator.");
+		}
+		SubscriptionPayload payload = subscriptionOrderEvent.getPayload();
+		if (payload == null) {
+			throw new AccountCreationException("The subscriptionOrderEvent has no payload.");
+		}
+		return getUserManager().addUserSubscription(c, payload);
 
 	}
 
-	public int cancelAccount(HttpURLConnection response) throws JAXBException, IOException {
+	public int cancelAccount(HttpURLConnection response) throws JAXBException, IOException, AccountCreationException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(SubscriptionEvent.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
 		SubscriptionEvent subscriptionCancelEvent = (SubscriptionEvent) jaxbUnmarshaller
 				.unmarshal(response.getInputStream());
-		System.out.println("printing dummy order :\n" + subscriptionCancelEvent);
+		System.out.println("Cancel account for cancel event :\n" + subscriptionCancelEvent);
 
 		SubscriptionPayload payload = subscriptionCancelEvent.getPayload();
+		if (payload == null) {
+			throw new AccountCreationException("The subscriptionCancelEvent has no payload.");
+		}
 
 		return getUserManager().cancelUserSubscription(payload);
 
