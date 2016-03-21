@@ -36,8 +36,10 @@ public class SubscriptionManager {
 	private UserManager userManager;
 
 	/**
-	 * Creates the account.
-	 *
+	 * Creates the account for a new customer that has purchased the app. It
+	 * extracts the neccessary parts of the event data to create the account and
+	 * returns the account number.
+	 * 
 	 * @param response
 	 *            the response
 	 * @return the int
@@ -72,7 +74,8 @@ public class SubscriptionManager {
 	}
 
 	/**
-	 * Cancel account.
+	 * Cancel account method extracts the necessary parts of the event data to
+	 * cancel the account and returns the account number.
 	 *
 	 * @param response
 	 *            the response

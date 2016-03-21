@@ -64,18 +64,21 @@ public class RestAuthenticator {
 		List<String> authHeader = headers.get(AUTHORIZATION_HEADER);
 		if (authHeader == null) {
 			return false;
-		} else {
-			for (Iterator<String> iter = authHeader.iterator(); iter.hasNext();) {
+		}
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("The authorization header content: " + authHeader);
+
+			for (Iterator<String> iter = authHeader.iterator(); iter.hasNext();) {
 				String headerName = iter.next();
-				System.out.println("" + headerName);
+				logger.debug(headerName + " \n");
 			}
 		}
 
 		// ("oauth_signature");
-		String oAuthSignature = authHeader.get(0);
+		String oAuthParameters = authHeader.get(0);
 		if (logger.isDebugEnabled()) {
-			logger.debug("The oAuthSignature in header : " + oAuthSignature);
+			logger.debug("The oAuthParameters in header : " + oAuthParameters);
 		}
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
 		consumer.setSigningStrategy(new QueryStringSigningStrategy());

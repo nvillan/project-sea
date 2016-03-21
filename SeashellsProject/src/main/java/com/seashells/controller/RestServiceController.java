@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -107,7 +108,12 @@ public class RestServiceController {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		// 5. Exception flow Send the response
+		Result result = new Result();
+		result.setSuccess(false);
+		result.setMessage("An error occurred .");
+		ResponseEntity<String> re = createResponse(result);
+		return re;
 
 	}
 
@@ -116,12 +122,21 @@ public class RestServiceController {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_XML);
 		String accountIdentifier = result.getAccountIdentifier();
+		StringBuffer bf = new StringBuffer();
 
-		String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>"
-				+ String.valueOf(result.isSuccess()) + "</success><message>" + result.getMessage()
-				+ "</message><accountIdentifier>" + accountIdentifier + "</accountIdentifier></result>";
-
-		return new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders, HttpStatus.OK);
+		bf.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>");
+		bf.append(String.valueOf(result.isSuccess()));
+		bf.append("</success><message>");
+		bf.append(result.getMessage());
+		bf.append("</message>");
+		if (StringUtils.isEmpty(accountIdentifier)) {
+			bf.append("</result>");
+		} else {
+			bf.append("<accountIdentifier>");
+			bf.append(accountIdentifier);
+			bf.append("</accountIdentifier></result>");
+		}
+		return new ResponseEntity<String>(bf.toString(), httpHeaders, HttpStatus.OK);
 	}
 
 	/**
@@ -160,7 +175,7 @@ public class RestServiceController {
 			int accoutNumber = getSubscriptionManager().cancelAccount(response);
 
 			if (logger.isInfoEnabled()) {
-				logger.info("Account " + accoutNumber+" is cancelled.");
+				logger.info("Account " + accoutNumber + " is cancelled.");
 			}
 			// 4. Send the response
 			Result result = new Result();
