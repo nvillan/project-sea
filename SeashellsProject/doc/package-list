@@ -1,0 +1,8 @@
+
+com.seashells.controller
+com.seashells.dao
+com.seashells.entity
+com.seashells.exception
+com.seashells.manager
+com.seashells.model
+com.seashells.validator
