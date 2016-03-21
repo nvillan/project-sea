@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seashells.manager.AccountCreationException;
+import com.seashells.exception.AccountCreationException;
 import com.seashells.manager.SubscriptionManager;
 import com.seashells.model.Result;
 import com.seashells.validator.RestAuthenticator;
@@ -45,8 +45,8 @@ public class RestServiceController {
 	/**
 	 * Process notify order method handles the subscription order event. It
 	 * validates that the rest call comes from App Direct, signs the url using
-	 * OAuth and sends it back to App Direct which will validate and send the
-	 * event data.
+	 * OAuth and sends it back to App Direct. If valid we receive the event data
+	 * and create the new customer account.
 	 * 
 	 * @param headers
 	 *            the headers
@@ -118,10 +118,11 @@ public class RestServiceController {
 	}
 
 	/**
-	 * Process notify order method handles the subscription order event. It
+	 * Process notify cancel method handles the subscription cancel event. It
 	 * validates that the rest call comes from App Direct, signs the url using
-	 * OAuth and sends it back to App Direct which will validate and send the
-	 * event data.
+	 * OAuth and sends it back to App Direct. Then, we receive the event data
+	 * and cancel the account.
+	 * 
 	 * 
 	 * @param headers
 	 *            the headers
@@ -150,20 +151,11 @@ public class RestServiceController {
 			int accoutNumber = getSubscriptionManager().cancelAccount(response);
 
 			// 4. Send the response
-			String reponseReturnStringOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><result><success>true</success><message>Account creation successful for Fake Co. by Alice</message><accountIdentifier>"
-					+ String.valueOf(accoutNumber) + "</accountIdentifier></result>";
-
-			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.setContentType(MediaType.APPLICATION_XML);
-
 			Result result = new Result();
 			result.setSuccess(true);
-			result.setMessage("Account cancelled successful for nat.");
-
-			ResponseEntity<String> re = new ResponseEntity<String>(reponseReturnStringOriginal, httpHeaders,
-					HttpStatus.OK);
-			System.out.println("printing response entity :\n" + re.toString());
-
+			result.setAccountIdentifier(String.valueOf(accoutNumber));
+			result.setMessage("Account cancelled successful.");
+			ResponseEntity<String> re = createResponse(result);
 			return re;
 
 		} catch (IOException e) {
@@ -183,7 +175,7 @@ public class RestServiceController {
 			e.printStackTrace();
 		}
 
-		return null;
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 
 	}
 

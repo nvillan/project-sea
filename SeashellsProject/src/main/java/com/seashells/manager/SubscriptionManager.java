@@ -13,21 +13,33 @@ import javax.xml.bind.Unmarshaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.seashells.exception.AccountCreationException;
 import com.seashells.model.Creator;
 import com.seashells.model.SubscriptionEvent;
 import com.seashells.model.SubscriptionPayload;
 
 /**
- * @author N&Y
+ * The Class SubscriptionManager.
  *
+ * @author N&Y
  */
 
 @Service
 public class SubscriptionManager {
 
+	/** The user manager. */
 	@Autowired
 	private UserManager userManager;
 
+	/**
+	 * Creates the account.
+	 *
+	 * @param response the response
+	 * @return the int
+	 * @throws JAXBException the JAXB exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws AccountCreationException the account creation exception
+	 */
 	public int createAccount(HttpURLConnection response) throws JAXBException, IOException, AccountCreationException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(SubscriptionEvent.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -48,6 +60,15 @@ public class SubscriptionManager {
 
 	}
 
+	/**
+	 * Cancel account.
+	 *
+	 * @param response the response
+	 * @return the int
+	 * @throws JAXBException the JAXB exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws AccountCreationException the account creation exception
+	 */
 	public int cancelAccount(HttpURLConnection response) throws JAXBException, IOException, AccountCreationException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(SubscriptionEvent.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -66,6 +87,8 @@ public class SubscriptionManager {
 	}
 
 	/**
+	 * Gets the user manager.
+	 *
 	 * @return the userManager
 	 */
 	public UserManager getUserManager() {
@@ -73,8 +96,9 @@ public class SubscriptionManager {
 	}
 
 	/**
-	 * @param userManager
-	 *            the userManager to set
+	 * Sets the user manager.
+	 *
+	 * @param userManager            the userManager to set
 	 */
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;

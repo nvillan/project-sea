@@ -9,17 +9,27 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seashells.entity.UserEntity;
 import com.seashells.model.Creator;
 import com.seashells.model.SubscriptionPayload;
-
+ 
+/**
+ * The Class UserManagerImpl.
+ */
 @Service
 public class UserManagerImpl implements UserManager {
 
+	/** The user repo manager. */
 	@Autowired
 	private UserRepositoryManager userRepoManager;
 
+	/* (non-Javadoc)
+	 * @see com.seashells.manager.UserManager#retrieveUsers()
+	 */
 	public List<UserEntity> retrieveUsers() {
 		return getUserRepoManager().getAllUsers();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.seashells.manager.UserManager#addUserSubscription(com.seashells.model.Creator, com.seashells.model.SubscriptionPayload)
+	 */
 	@Transactional
 	public int addUserSubscription(Creator creator, SubscriptionPayload subscriptionPayload) {
 		// validate creator details
@@ -37,6 +47,8 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
+	 * Gets the user repo manager.
+	 *
 	 * @return the userRepoManager
 	 */
 	public UserRepositoryManager getUserRepoManager() {
@@ -44,13 +56,17 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	/**
-	 * @param userRepoManager
-	 *            the userRepoManager to set
+	 * Sets the user repo manager.
+	 *
+	 * @param userRepoManager            the userRepoManager to set
 	 */
 	public void setUserRepoManager(UserRepositoryManager userRepoManager) {
 		this.userRepoManager = userRepoManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.seashells.manager.UserManager#cancelUserSubscription(com.seashells.model.SubscriptionPayload)
+	 */
 	public int cancelUserSubscription(SubscriptionPayload payload) {
 
 		System.out.println("printing account num " + String.valueOf(payload.getAccount().getAccountIdentifier()));
