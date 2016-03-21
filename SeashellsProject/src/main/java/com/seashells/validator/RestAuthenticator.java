@@ -80,6 +80,8 @@ public class RestAuthenticator {
 		if (logger.isDebugEnabled()) {
 			logger.debug("The oAuthParameters in header : " + oAuthParameters);
 		}
+		
+		//TODO: Fix validation for the signature
 		OAuthConsumer consumer = new DefaultOAuthConsumer(SIGNING_KEY, SIGNING_SECRET);
 		consumer.setSigningStrategy(new QueryStringSigningStrategy());
 

@@ -118,7 +118,8 @@ public class RestServiceController {
 	}
 
 	private ResponseEntity<String> createResponse(Result result) {
-
+		// TODO: Use Result marshaller to convert the object to XML , rather
+		// than manipulating string.
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_XML);
 		String accountIdentifier = result.getAccountIdentifier();
