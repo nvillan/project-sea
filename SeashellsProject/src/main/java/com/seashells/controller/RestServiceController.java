@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 
 import javax.xml.bind.JAXBException;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,8 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 @RestController
 public class RestServiceController {
 
+	final static Logger logger = Logger.getLogger(RestServiceController.class);
+
 	@Autowired
 	private RestAuthenticator restAuthenticator;
 
@@ -66,12 +69,16 @@ public class RestServiceController {
 
 			// 2. If call is from App Direct, sign it and send it back
 			HttpURLConnection response = getRestAuthenticator().sign(urlParam);
-			System.out.println("Response Code : " + response.getResponseCode());
 
+			if (logger.isDebugEnabled()) {
+				logger.debug("Response Code : " + response.getResponseCode());
+			}
 			// 3. Create account
 			int accoutNumber = getSubscriptionManager().createAccount(response);
-			System.out.println("Account created is :\n" + accoutNumber);
 
+			if (logger.isInfoEnabled()) {
+				logger.info("Account created is :\n" + accoutNumber);
+			}
 			// 4. Send the response
 			Result result = new Result();
 			result.setSuccess(true);
@@ -145,11 +152,16 @@ public class RestServiceController {
 
 			// 2. Its call from App Direct, lets sign it and send it back
 			HttpURLConnection response = getRestAuthenticator().sign(urlParam);
-			System.out.println("Response Code : " + response.getResponseCode());
 
+			if (logger.isDebugEnabled()) {
+				logger.debug("Response Code : " + response.getResponseCode());
+			}
 			// 3. Cancel account
 			int accoutNumber = getSubscriptionManager().cancelAccount(response);
 
+			if (logger.isInfoEnabled()) {
+				logger.info("Account " + accoutNumber+" is cancelled.");
+			}
 			// 4. Send the response
 			Result result = new Result();
 			result.setSuccess(true);

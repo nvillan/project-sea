@@ -13,28 +13,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * The Class SubscriptionPayload.
  */
-@XmlRootElement (name = "payload")
+@XmlRootElement(name = "payload")
 @XmlAccessorType(XmlAccessType.NONE)
-public class SubscriptionPayload implements Serializable 
-{
-   
-   /** The Constant serialVersionUID. */
-   private static final long serialVersionUID = 1L;
- 
-   /** The account. */
-   @XmlElement
-   private SubscriptionAccount account;
-   
-   /** The order. */
-   @XmlElement
-   private SubscriptionOrder order;
-    
-   //@XmlElement
-   //private String company;
-    	
+public class SubscriptionPayload implements Serializable {
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The account. */
+	@XmlElement
+	private SubscriptionAccount account;
+
+	/** The order. */
+	@XmlElement
+	private SubscriptionOrder order;
+
+	// @XmlElement
+	// private String company;
+
 	/**
-    * Instantiates a new subscription payload.
-    */
+	 * Instantiates a new subscription payload.
+	 */
 	public SubscriptionPayload() {
 		// TODO Auto-generated constructor stub
 	}
@@ -51,31 +50,32 @@ public class SubscriptionPayload implements Serializable
 	/**
 	 * Sets the order.
 	 *
-	 * @param order the order to set
+	 * @param order
+	 *            the order to set
 	 */
 	public void setOrder(SubscriptionOrder order) {
 		this.order = order;
 	}
-//
-//	/**
-//	 * @return the company
-//	 */
-//	public String getCompany() {
-//		return company;
-//	}
-//
-//	/**
-//	 * @param company the company to set
-//	 */
-//	public void setCompany(String company) {
-//		this.company = company;
-//	}
+	//
+	// /**
+	// * @return the company
+	// */
+	// public String getCompany() {
+	// return company;
+	// }
+	//
+	// /**
+	// * @param company the company to set
+	// */
+	// public void setCompany(String company) {
+	// this.company = company;
+	// }
 
 	/**
- * Gets the account.
- *
- * @return the account
- */
+	 * Gets the account.
+	 *
+	 * @return the account
+	 */
 	public SubscriptionAccount getAccount() {
 		return account;
 	}
@@ -83,7 +83,8 @@ public class SubscriptionPayload implements Serializable
 	/**
 	 * Sets the account.
 	 *
-	 * @param account the account to set
+	 * @param account
+	 *            the account to set
 	 */
 	public void setAccount(SubscriptionAccount account) {
 		this.account = account;

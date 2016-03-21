@@ -2,6 +2,7 @@ package com.seashells.manager;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,8 @@ import com.seashells.model.SubscriptionPayload;
  */
 @Service
 public class UserManagerImpl implements UserManager {
+
+	final static Logger logger = Logger.getLogger(UserManagerImpl.class);
 
 	/** The user repo manager. */
 	@Autowired
@@ -42,6 +45,10 @@ public class UserManagerImpl implements UserManager {
 		user.setEmail(creator.getEmail());
 		user.setEdition(subscriptionPayload.getOrder().getEditionCode());
 
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Creating user : "+ user.toString()+" ");
+		}
 		return getUserRepoManager().addUser(user);
 
 	}

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
- 
+
 /**
  * The Class Creator.
  *
@@ -45,7 +45,8 @@ public class Creator {
 	/**
 	 * Sets the first name.
 	 *
-	 * @param firstName the firstName to set
+	 * @param firstName
+	 *            the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -63,7 +64,8 @@ public class Creator {
 	/**
 	 * Sets the last name.
 	 *
-	 * @param lastName the lastName to set
+	 * @param lastName
+	 *            the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -81,7 +83,8 @@ public class Creator {
 	/**
 	 * Sets the language.
 	 *
-	 * @param language the language to set
+	 * @param language
+	 *            the language to set
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
@@ -99,7 +102,8 @@ public class Creator {
 	/**
 	 * Sets the email.
 	 *
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;

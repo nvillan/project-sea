@@ -1,11 +1,15 @@
 package com.seashells.controller;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.seashells.entity.UserEntity;
 import com.seashells.manager.UserManager;
 
 /**
@@ -17,6 +21,8 @@ import com.seashells.manager.UserManager;
  */
 @Controller
 public class ApplicationController {
+
+	final static Logger logger = Logger.getLogger(ApplicationController.class);
 
 	/** The user manager. */
 	@Autowired
@@ -32,7 +38,13 @@ public class ApplicationController {
 	 */
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listUsers(ModelMap map) {
-		map.addAttribute("userList", getUserManager().retrieveUsers());
+
+		List<UserEntity> users = getUserManager().retrieveUsers();
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Found " + users.size() + " users.");
+		}
+		map.addAttribute("userList", users);
 		return "userList";
 	}
 

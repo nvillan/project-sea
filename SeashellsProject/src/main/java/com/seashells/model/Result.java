@@ -9,14 +9,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
- 
+
 /**
  * The Class Result.
  */
 @XmlRootElement(name = "result")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Result implements Serializable {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +44,8 @@ public class Result implements Serializable {
 	/**
 	 * Sets the success.
 	 *
-	 * @param success the success to set
+	 * @param success
+	 *            the success to set
 	 */
 	public void setSuccess(boolean success) {
 		this.success = success;
@@ -62,7 +63,8 @@ public class Result implements Serializable {
 	/**
 	 * Sets the message.
 	 *
-	 * @param message the message to set
+	 * @param message
+	 *            the message to set
 	 */
 	public void setMessage(String message) {
 		this.message = message;
@@ -80,11 +82,11 @@ public class Result implements Serializable {
 	/**
 	 * Sets the account identifier.
 	 *
-	 * @param accountIdentifier the accountIdentifier to set
+	 * @param accountIdentifier
+	 *            the accountIdentifier to set
 	 */
 	public void setAccountIdentifier(String accountIdentifier) {
 		this.accountIdentifier = accountIdentifier;
 	}
-
 
 }

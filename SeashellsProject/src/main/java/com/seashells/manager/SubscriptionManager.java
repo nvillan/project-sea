@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,14 @@ import com.seashells.model.SubscriptionPayload;
 /**
  * The Class SubscriptionManager.
  *
- * @author N&Y
+ * @author Natalie Villanueva
+ * @version 1.0
  */
 
 @Service
 public class SubscriptionManager {
+
+	final static Logger logger = Logger.getLogger(SubscriptionManager.class);
 
 	/** The user manager. */
 	@Autowired
@@ -34,11 +38,15 @@ public class SubscriptionManager {
 	/**
 	 * Creates the account.
 	 *
-	 * @param response the response
+	 * @param response
+	 *            the response
 	 * @return the int
-	 * @throws JAXBException the JAXB exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws AccountCreationException the account creation exception
+	 * @throws JAXBException
+	 *             the JAXB exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws AccountCreationException
+	 *             the account creation exception
 	 */
 	public int createAccount(HttpURLConnection response) throws JAXBException, IOException, AccountCreationException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(SubscriptionEvent.class);
@@ -46,7 +54,10 @@ public class SubscriptionManager {
 
 		SubscriptionEvent subscriptionOrderEvent = (SubscriptionEvent) jaxbUnmarshaller
 				.unmarshal(response.getInputStream());
-		System.out.println("Creation account for order :\n" + subscriptionOrderEvent);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Creation account for order :\n" + subscriptionOrderEvent);
+		}
 
 		Creator c = subscriptionOrderEvent.getCreator();
 		if (c == null) {
@@ -63,11 +74,15 @@ public class SubscriptionManager {
 	/**
 	 * Cancel account.
 	 *
-	 * @param response the response
+	 * @param response
+	 *            the response
 	 * @return the int
-	 * @throws JAXBException the JAXB exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws AccountCreationException the account creation exception
+	 * @throws JAXBException
+	 *             the JAXB exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws AccountCreationException
+	 *             the account creation exception
 	 */
 	public int cancelAccount(HttpURLConnection response) throws JAXBException, IOException, AccountCreationException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(SubscriptionEvent.class);
@@ -75,8 +90,10 @@ public class SubscriptionManager {
 
 		SubscriptionEvent subscriptionCancelEvent = (SubscriptionEvent) jaxbUnmarshaller
 				.unmarshal(response.getInputStream());
-		System.out.println("Cancel account for cancel event :\n" + subscriptionCancelEvent);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("Cancel account for cancel event :\n" + subscriptionCancelEvent);
+		}
 		SubscriptionPayload payload = subscriptionCancelEvent.getPayload();
 		if (payload == null) {
 			throw new AccountCreationException("The subscriptionCancelEvent has no payload.");
@@ -98,7 +115,8 @@ public class SubscriptionManager {
 	/**
 	 * Sets the user manager.
 	 *
-	 * @param userManager            the userManager to set
+	 * @param userManager
+	 *            the userManager to set
 	 */
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;

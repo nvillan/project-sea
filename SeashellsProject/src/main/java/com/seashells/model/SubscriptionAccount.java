@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "account")
 @XmlAccessorType(XmlAccessType.NONE)
 public class SubscriptionAccount implements Serializable {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,8 @@ public class SubscriptionAccount implements Serializable {
 	/**
 	 * Sets the account identifier.
 	 *
-	 * @param accountIdentifier the accountIdentifier to set
+	 * @param accountIdentifier
+	 *            the accountIdentifier to set
 	 */
 	public void setAccountIdentifier(int accountIdentifier) {
 		this.accountIdentifier = accountIdentifier;

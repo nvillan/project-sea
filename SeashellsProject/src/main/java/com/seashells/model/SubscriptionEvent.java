@@ -6,40 +6,38 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
- 
+
 /**
  * The Class SubscriptionEvent.
  */
 @XmlRootElement(name = "event")
 @XmlAccessorType(XmlAccessType.NONE)
 public class SubscriptionEvent implements Serializable {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The type. */
 	@XmlElement
 	private String type;
-//
-//	@XmlElement
-//	private String marketplace;
+	//
+	// @XmlElement
+	// private String marketplace;
 
 	/** The creator. */
-@XmlElement
+	@XmlElement
 	private Creator creator;
 
 	/** The payload. */
 	@XmlElement
 	private SubscriptionPayload payload;
- 
-	
+
 	/**
 	 * Instantiates a new subscription event.
 	 */
 	public SubscriptionEvent() {
 
 	}
- 
 
 	/**
 	 * Gets the type.
@@ -53,32 +51,33 @@ public class SubscriptionEvent implements Serializable {
 	/**
 	 * Sets the type.
 	 *
-	 * @param type            the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(String type) {
 		this.type = type;
 	}
-//
-//	/**
-//	 * @return the marketplace
-//	 */
-//	public String getMarketplace() {
-//		return marketplace;
-//	}
-//
-//	/**
-//	 * @param marketplace
-//	 *            the marketplace to set
-//	 */
-//	public void setMarketplace(String marketplace) {
-//		this.marketplace = marketplace;
-//	}
+	//
+	// /**
+	// * @return the marketplace
+	// */
+	// public String getMarketplace() {
+	// return marketplace;
+	// }
+	//
+	// /**
+	// * @param marketplace
+	// * the marketplace to set
+	// */
+	// public void setMarketplace(String marketplace) {
+	// this.marketplace = marketplace;
+	// }
 
 	/**
- * Gets the payload.
- *
- * @return the payload
- */
+	 * Gets the payload.
+	 *
+	 * @return the payload
+	 */
 	public SubscriptionPayload getPayload() {
 		return payload;
 	}
@@ -86,13 +85,16 @@ public class SubscriptionEvent implements Serializable {
 	/**
 	 * Sets the payload.
 	 *
-	 * @param payload            the payload to set
+	 * @param payload
+	 *            the payload to set
 	 */
 	public void setPayload(SubscriptionPayload payload) {
 		this.payload = payload;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -112,7 +114,8 @@ public class SubscriptionEvent implements Serializable {
 	/**
 	 * Sets the creator.
 	 *
-	 * @param creator            the creator to set
+	 * @param creator
+	 *            the creator to set
 	 */
 	public void setCreator(Creator creator) {
 		this.creator = creator;
